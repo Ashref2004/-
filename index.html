@@ -336,7 +336,6 @@
             animation: pulse 2s infinite;
         }
         
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -606,30 +605,23 @@
     </div>
     
     <script>
-        // Tab switching functionality
         const tabs = document.querySelectorAll('.tab');
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
-                // Remove active class from all tabs and contents
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 
-                // Add active class to clicked tab and corresponding content
                 tab.classList.add('active');
                 const tabId = tab.getAttribute('data-tab');
                 document.getElementById(`${tabId}-content`).classList.add('active');
             });
         });
         
-        // Countdown timer
         function updateCountdown() {
-            // Set the date for Arafah Day (example: June 15, 2023)
-            // Note: You should replace this with the actual Arafah date for the current Hijri year
             const currentYear = new Date().getFullYear();
             const arafahDate = new Date(`June 15, ${currentYear} 00:00:00`);
             const now = new Date();
             
-            // If Arafah day has passed this year, set for next year
             if (now > arafahDate) {
                 arafahDate.setFullYear(currentYear + 1);
             }
@@ -647,18 +639,15 @@
             document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
         }
         
-        // Update countdown every second
         updateCountdown();
         setInterval(updateCountdown, 1000);
         
-        // Audio button functionality
         const audioBtn = document.getElementById('audio-btn');
         let audioPlaying = false;
         let audio = null;
         
         audioBtn.addEventListener('click', () => {
             if (audioPlaying) {
-                // Stop audio
                 if (audio) {
                     audio.pause();
                     audio.currentTime = 0;
@@ -666,7 +655,6 @@
                 audioBtn.innerHTML = '<i class="fas fa-play"></i>';
                 audioPlaying = false;
             } else {
-                // Play audio (replace with actual audio file)
                 audio = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
                 audio.play();
                 audioBtn.innerHTML = '<i class="fas fa-stop"></i>';
@@ -679,12 +667,10 @@
             }
         });
         
-        // Prayer times API
         function updatePrayerTimes(latitude, longitude) {
             const date = new Date();
             const formattedDate = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
             
-            // Using Aladhan API for prayer times
             fetch(`https://api.aladhan.com/v1/timings/${formattedDate}?latitude=${latitude}&longitude=${longitude}&method=2`)
                 .then(response => response.json())
                 .then(data => {
@@ -715,7 +701,6 @@
             return `${displayHour}:${minutes} ${period}`;
         }
         
-        // Get user location for prayer times
         function getLocation() {
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
@@ -732,10 +717,8 @@
             }
         }
         
-        // Initialize prayer times
         getLocation();
-        
-        // Add hover effects to all elements with class 'card' and 'countdown-item'
+
         document.querySelectorAll('.card, .countdown-item, .prayer-time').forEach(element => {
             element.style.transition = 'all 0.3s ease';
         });
